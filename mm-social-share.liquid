@@ -1,0 +1,42 @@
+{% assign facebook_enabled = facebook | default: false %}
+{% assign twitter_enabled = twitter | default: false %}
+{% assign whatsapp_enabled = whatsapp | default: false %}
+{% assign email_enabled = email | default: false %}
+
+{% comment %}
+  USAGE: 
+  {% render 'mm-social-share',
+    twitter : boolean,
+    facebook: boolean,
+    whatsapp: boolean,
+    email: boolean,
+    url: relative url
+  %}
+{% endcomment %}
+
+<style>
+  .mm-social-share a{
+    margin-right: 2rem;
+  }
+  .mm-social-share a svg{
+    width: 1.8rem;
+    height: 1.8rem;
+    color: rgb(106 115 126);
+    fill: rgb(106 115 126);
+  }
+</style>
+
+<div class="mm-social-share">
+  {% if facebook_enabled %}
+    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.origin }}{{ url }}">{% render 'icon-facebook' %}</a>
+  {% endif %}
+  {% if twitter_enabled %}
+    <a href="https://twitter.com/intent/tweet?url={{ request.origin }}{{ url }}">{% render 'icon-twitter' %}</a>
+  {% endif %}
+  {% if whatsapp_enabled %}
+    <a href="https://web.whatsapp.com/send?text={{ request.origin }}{{ url }}">{% render 'icon-whatsapp' %}</a>
+  {% endif %}
+  {% if email_enabled %}
+    <a href="mailto:?subject=Check out this recipe&body=Hey,I found this recipe on mapro and thought you might like it%0D%0A%0D%0A{{ request.origin }}{{ url }}%0D%0A%0D%0A">{% render 'icon-mail' %}</a>
+  {% endif %}
+</div>
